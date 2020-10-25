@@ -85,6 +85,28 @@ def global_opts(f):
         show_default=True,
         show_envvar=True,
     )
+    @click.option(
+        "--username",
+        "-u",
+        envvar="MQBOARD_USERNAME",
+        required=False,
+        type=click.STRING,
+        help="MQTT broker username.",
+        metavar="USERNAME",
+        show_default=True,
+        show_envvar=True,
+    )
+    @click.option(
+        "--password",
+        "-w",
+        envvar="MQBOARD_PASSWORD",
+        required=False,
+        type=click.STRING,
+        help="MQTT broker password.",
+        metavar="PASSWORD",
+        show_default=True,
+        show_envvar=True,
+    )
     # @click.version_option()
     def new_func(*args, **kwargs):
         return f(*args, **kwargs)
@@ -105,7 +127,7 @@ def get_topic(prefix, topic):
 @click.group()
 @global_opts
 @click.pass_context
-def cli(ctx, server, port, tls, timeout, verbose, prefix, topic):
+def cli(ctx, server, port, tls, timeout, verbose, prefix, topic, username, password):
     """mqboard - MQTT MicroPython Tool
 
     Mqboard controls MicroPython boards over MQTT. It can manipulate files on
@@ -116,7 +138,7 @@ def cli(ctx, server, port, tls, timeout, verbose, prefix, topic):
     """
     ctx.ensure_object(dict)
     topic = get_topic(prefix, topic)
-    ctx.obj["engine"] = engine.MQTT(server, port, tls, topic, timeout, verbose)
+    ctx.obj["engine"] = engine.MQTT(server, port, tls, topic, timeout, verbose, username, password)
 
 
 if __name__ == "__main__":
