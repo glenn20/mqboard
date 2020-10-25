@@ -25,7 +25,7 @@ try:
     import uasyncio as asyncio
 
     async def open_connection(addr, ssl):
-        return (await asyncio.open_connection(addr[0], addr[1], ssl=ssl))[0]
+        return (await asyncio.open_connection(addr[0], addr[1]))[0]
 
     try:
         from machine import unique_id
