@@ -125,7 +125,7 @@ def main():  # function keeps global namespace clean
             )
 
         def lm():
-            log.info("MEM free=%d contig=%d", gc.mem_free(), gc.mem_maxfree())
+            log.info("MEM free=%d", gc.mem_free())
             log.info("IDF %s", [h[2] for h in idf_heap_info(HEAP_DATA) if h[2] > 0])
 
         loop.set_exception_handler(def_exception_handler)
